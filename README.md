@@ -1,4 +1,4 @@
-<img width="1439" alt="Screenshot 2025-04-21 at 11 14 50 pm" src="https://github.com/user-attachments/assets/5c84b4b0-eb08-4b46-a5e9-687191f4303e" /><img width="1415" alt="Screenshot 2025-04-21 at 11 13 26 pm" src="https://github.com/user-attachments/assets/757dfb6e-e0f9-47d0-9c10-8c3b8ee6c463" /> **Frontend: Angular 19 + Tailwind + DaisyUI**
+**Frontend: Angular 19 + Tailwind + DaisyUI**
 
 ```markdown
 # 💻 Task Manager UI (Angular 19 + Tailwind CSS)
