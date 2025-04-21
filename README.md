@@ -1,4 +1,4 @@
-**Frontend: Angular 19 + Tailwind + DaisyUI**
+**Frontend: Angular 19 + Tailwind + DaisyUI** - Sample Project with core concepts
 
 ```markdown
 # 💻 Task Manager UI (Angular 19 + Tailwind CSS)
