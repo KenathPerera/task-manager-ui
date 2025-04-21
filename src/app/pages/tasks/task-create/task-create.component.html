@@ -1,0 +1,58 @@
+<div class="flex justify-center px-4">
+    <div class="w-full max-w-xl bg-base-300 shadow-md rounded-xl p-6 mt-6">
+
+        <h2 class="text-2xl font-bold mb-4 text-primary">Add New Task</h2>
+
+        <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="space-y-4">
+
+            <!-- Title -->
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text font-semibold">Title</span>
+                </label>
+                <input type="text" formControlName="title" class="input input-bordered w-full"
+                    placeholder="Enter task title" />
+                <div class="text-error text-sm mt-1"
+                    *ngIf="taskForm.get('title')?.touched && taskForm.get('title')?.invalid">
+                    Title is required.
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text font-semibold">Description</span>
+                </label>
+                <textarea formControlName="description" class="textarea textarea-bordered w-full" rows="4"
+                    placeholder="Describe the task"></textarea>
+            </div>
+
+            <!-- Due Date -->
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text font-semibold">Due Date</span>
+                </label>
+                <input type="date" formControlName="dueDate" class="input input-bordered w-full" />
+            </div>
+
+            <!-- Loader -->
+            <div *ngIf="isLoading" class="flex justify-center">
+                <span class="loading loading-spinner loading-md text-primary"></span>
+            </div>
+
+            <!-- Submit -->
+            <div class="form-control">
+                <button type="submit" class="btn btn-primary w-full" [disabled]="taskForm.invalid || isLoading">
+                    <i class="fas fa-rocket mr-2"></i> Create Task
+                </button>
+            </div>
+        </form>
+
+        <!-- Toast -->
+        <div *ngIf="isSuccess" class="toast toast-top toast-end z-50">
+            <div class="alert alert-success">
+                <span>Task added successfully!</span>
+            </div>
+        </div>
+    </div>
+</div>

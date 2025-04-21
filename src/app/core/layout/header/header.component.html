@@ -1,0 +1,26 @@
+<div class="navbar bg-base-100 shadow-md px-4">
+    <div class=" flex flex-1 gap-2">
+        <button class="btn btn-ghost bg-base-300" *ngIf="showButtons" (click)="goBack()">Back</button>
+        <a class="btn btn-ghost text-xl">Task Manager</a>
+    </div>
+    <div class="flex flex-none gap-2">
+        <button class="btn btn-ghost btn-sm bg-base-300" (click)="toggleTheme()">
+            🌓 Toggle Theme
+        </button>
+        <button class="btn btn-success btn-sm " *ngIf="currentRoute === '/register'" (click)="goToLogin()">
+            Login
+        </button>
+        <button class="btn btn-error btn-sm" *ngIf="showButtons && currentRoute !== '/register'" (click)="logout()">
+            Logout
+        </button>
+    </div>
+    <!-- Spinner Overlay with Blur -->
+    <div *ngIf="isLoggingOut"
+        class="fixed inset-0 backdrop-blur-sm bg-base-100/30 flex items-center justify-center z-50">
+        <div class="flex flex-col items-center gap-4 p-6 bg-base-100 rounded-xl shadow-lg">
+            <span class="loading loading-spinner text-primary loading-lg"></span>
+            <p class="text-lg font-semibold text-base-content">Logging out...</p>
+        </div>
+    </div>
+
+</div>

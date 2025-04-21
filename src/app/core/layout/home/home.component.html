@@ -1,0 +1,65 @@
+<div class="space-y-6">
+    <h2 class="text-2xl font-bold"><i class="fas fa-chart-bar"></i> Dashboard</h2>
+    <!-- Top: Filter + Actions -->
+    <div class="flex flex-col md:flex-row justify-between items-start gap-4">
+        <!-- Filter -->
+        <div class="form-control w-full max-w-xs">
+            <label class="label">
+                <span class="label-text">Show tasks for:</span>
+            </label>
+            <select class="select select-bordered" [(ngModel)]="selectedRange" (change)="onRangeChange(selectedRange)">
+                <option *ngFor="let d of rangeOptions" [ngValue]="d">Next {{ d }} days</option>
+            </select>
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex flex-wrap gap-4 mt-2">
+            <a routerLink="/create" class="btn btn-primary btn-lg animate-pulse" *ngIf="isAdmin">
+                <i class="fas fa-plus-circle mr-2"></i> Add Task
+            </a>
+            <a routerLink="/all-tasks" class="btn btn-outline btn-accent btn-lg hover:scale-105 transition-transform">
+                <i class="fas fa-list mr-2"> </i> Tasks
+            </a>
+        </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="stats shadow bg-base-300">
+            <div class="stat">
+                <div class="stat-title">Total Tasks</div>
+                <div class="stat-value text-primary">{{ animatedTotal }}</div>
+            </div>
+        </div>
+        <div class="stats shadow bg-base-300">
+            <div class="stat">
+                <div class="stat-title">Due Today</div>
+                <div class="stat-value text-secondary">{{ animatedToday }}</div>
+            </div>
+        </div>
+        <div class="stats shadow bg-base-300">
+            <div class="stat">
+                <div class="stat-title">Completed</div>
+                <div class="stat-value text-success">{{ animatedCompleted }}</div>
+            </div>
+        </div>
+        <div class="stats shadow bg-base-300">
+            <div class="stat">
+                <div class="stat-title">Pending</div>
+                <div class="stat-value text-warning">{{ animatedPending }}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Full-width Chart -->
+    <div class="bg-base-300 rounded-xl p-6 shadow w-full">
+        <h3 class="text-lg font-semibold mb-4"> <i class="fas fa-chart-line mr-2"></i>Tasks by Due Date</h3>
+
+        <!-- Chart container -->
+        <div class="h-[400px] w-full">
+            <!-- Replace with real chart -->
+            <apx-chart *ngIf="chartOptions.series?.length" [series]="chartOptions.series" [chart]="chartOptions.chart"
+                [xaxis]="chartOptions.xaxis"></apx-chart>
+        </div>
+    </div>
+</div>

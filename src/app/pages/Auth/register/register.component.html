@@ -1,0 +1,32 @@
+<div class="w-full max-w-sm mx-auto mt-10 p-6 bg-base-300 rounded-xl shadow-lg">
+    <h2 class="text-2xl font-bold mb-6 text-center"> Register</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-4">
+        <!-- Username -->
+        <div class="form-control">
+            <label class="label">
+                <span class="label-text">Username</span>
+            </label>
+            <input type="text" formControlName="username" class="input input-bordered w-full"
+                placeholder="Enter username" required />
+        </div>
+
+        <!-- Password -->
+        <div class="form-control">
+            <label class="label">
+                <span class="label-text">Password</span>
+            </label>
+            <input type="password" formControlName="password" class="input input-bordered w-full"
+                placeholder="Enter password" required />
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-control mt-6">
+            <button type="submit" class="btn btn-primary w-full" [disabled]="registerForm.invalid">
+                <i class="fas fa-user-plus mr-2"></i> Register
+            </button>
+        </div>
+    </form>
+
+    <!-- Message -->
+    <p *ngIf="message" class="text-sm text-center mt-4 text-success">{{ message }}</p>
+</div>

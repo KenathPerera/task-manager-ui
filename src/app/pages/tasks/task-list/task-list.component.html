@@ -1,0 +1,126 @@
+<div class="max-w-6xl mx-auto mt-6 p-4 bg-base-300">
+    <h2 class="text-2xl font-bold mb-4 text-accent"><i class="fas fa-list mr-2"> </i>Task List</h2>
+
+    <!-- Search -->
+    <div class="form-control mb-4 w-full max-w-sm">
+        <input type="text" class="input input-bordered" [(ngModel)]="search" (input)="onSearchChange()"
+            placeholder="Search tasks..." />
+    </div>
+
+    <!-- Table -->
+    <div class="overflow-x-auto bg-base-100 shadow rounded-xl mt-6">
+        <table class="table w-full">
+            <thead class="bg-base-200 dark:bg-300 text-base-content">
+                <tr>
+                    <th class="text-left">
+                        Title
+                        <button class="btn btn-ghost btn-xs" (click)="onSortChange('title_asc')"><i
+                                class="fas fa-arrow-up"></i></button>
+                        <button class="btn btn-ghost btn-xs" (click)="onSortChange('title_desc')"><i
+                                class="fas fa-arrow-down"></i></button>
+                    </th>
+                    <th class="text-left">Description</th>
+                    <th class="text-left">
+                        Due Date
+                        <button class="btn btn-ghost btn-xs" (click)="onSortChange('dueDate_asc')"><i
+                                class="fas fa-arrow-up"></i></button>
+                        <button class="btn btn-ghost btn-xs" (click)="onSortChange('dueDate_desc')"><i
+                                class="fas fa-arrow-down"></i></button>
+                    </th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let task of tasks; let i = index" [class.bg-base-100]="i % 2 === 0"
+                    [class.bg-base-200]="i % 2 !== 0" class="hover:bg-base-300 transition-colors duration-200">
+                    <td class="text-base-content font-semibold">{{ task.title }}</td>
+                    <td class="text-base-content">{{ task.description }}</td>
+                    <td class="text-base-content">{{ task.dueDate | date: 'mediumDate' }}</td>
+                    <td>
+                        <span class="badge" [ngClass]="{
+                            'badge-success': task.isCompleted,
+                            'badge-warning': !task.isCompleted
+                          }">
+                            {{ task.isCompleted ? 'Completed' : 'Pending' }}
+                        </span>
+                    </td>
+
+                    <!-- Action Buttons -->
+                    <td class="space-x-2">
+                        <button class="btn btn-sm btn-info" (click)="openEditModal(task)">
+                            <i class="fas fa-edit mr-1"></i>Edit
+                        </button>
+                        <button class="btn btn-sm btn-error" disabled title="Delete coming soon...">
+                            <i class="fas fa-trash-alt mr-1"></i>Delete
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <!-- Pagination -->
+    <div class="mt-4 flex justify-center gap-2">
+        <button class="btn btn-sm" (click)="onPageChange(page - 1)" [disabled]="page === 1">« Prev</button>
+        <span class="btn btn-sm btn-disabled">Page {{ page }}</span>
+        <button class="btn btn-sm" (click)="onPageChange(page + 1)" [disabled]="page * pageSize >= totalCount">
+            Next »
+        </button>
+    </div>
+</div>
+
+<dialog #editModal class="modal modal-bottom sm:modal-middle">
+    <div class="modal-box w-full max-w-md">
+        <h3 class="text-xl font-bold mb-4">✏️ Edit Task</h3>
+
+        <form #editForm="ngForm" (ngSubmit)="submitEdit()" class="space-y-4">
+            <!-- Title -->
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text font-semibold">Title</span>
+                </label>
+                <input type="text" class="input input-bordered w-full" [(ngModel)]="editTask.title" name="title"
+                    required />
+            </div>
+
+            <!-- Description -->
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text font-semibold">Description</span>
+                </label>
+                <textarea class="textarea textarea-bordered w-full" [(ngModel)]="editTask.description"
+                    name="description" rows="3"></textarea>
+            </div>
+
+            <!-- Due Date -->
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text font-semibold">Due Date</span>
+                </label>
+                <input type="date" class="input input-bordered w-full" [(ngModel)]="editTask.dueDate" name="dueDate"
+                    required />
+            </div>
+
+            <!-- Completed Toggle -->
+            <div class="form-control">
+                <label class="label cursor-pointer">
+                    <span class="label-text font-semibold">Completed</span>
+                    <input type="checkbox" class="toggle toggle-success" [(ngModel)]="editTask.isCompleted"
+                        name="completed" />
+                </label>
+            </div>
+
+            <!-- Actions -->
+            <div class="modal-action flex justify-end space-x-2 pt-4">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save mr-1"></i> Save
+                </button>
+                <button type="button" class="btn" (click)="closeModal()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</dialog>
